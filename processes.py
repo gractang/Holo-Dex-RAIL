@@ -1,7 +1,7 @@
 from multiprocessing import Process
 from holodex.utils.files import get_yaml_data
 from holodex.components import *
-from holodex.viz import Hand2DVisualizer, Hand3DVisualizer, MPImageVisualizer
+from holodex.viz import Hand2DVisualizer, Hand3DVisualizer, Hand3DVisualizerLogger, MPImageVisualizer
 from holodex.viz.visualizer_3d import OculusLeftHandDirVisualizer
 # from holodex.camera.realsense_camera import RealSenseRobotStream
 # from holodex.camera.camera_streamer import RobotCameraStreamer
@@ -45,6 +45,11 @@ def plot_2d(detector_type, *args):
 def plot_3d(detector_type):
     notify_process_start("Starting 3D Hand Plotting Process")
     plotter = Hand3DVisualizer(detector_type)
+    plotter.stream()
+
+def plot_3d_log(detector_type):
+    notify_process_start("Starting 3D Hand Plotting & Logging Process")
+    plotter = Hand3DVisualizerLogger(detector_type)
     plotter.stream()
 
 def plot_oculus_left_hand():
