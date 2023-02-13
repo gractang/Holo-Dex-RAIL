@@ -25,8 +25,8 @@ def main(configs):
     for process in keypoint_transform_processes:
         process.start()
 
-    # for process in plotter_processes:
-    #     process.start()
+    for process in plotter_processes:
+        process.start()
 
     time.sleep(2)
 
@@ -45,8 +45,8 @@ def main(configs):
     for process in keypoint_transform_processes:
         process.join()
 
-    # for process in plotter_processes:
-    #     process.join()
+    for process in plotter_processes:
+        process.join()
 
     # teleop_process.join()
 
