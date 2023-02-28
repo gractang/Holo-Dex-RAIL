@@ -111,7 +111,8 @@ def get_detector_processes(teleop_configs):
         plotter_processes = []
         if teleop_configs.tracker['visualize_graphs']:
             plotter_processes.append(Process(target = plot_2d, args = (teleop_configs.tracker.type, )))
-            plotter_processes.append(Process(target = plot_3d, args = (teleop_configs.tracker.type, ))),
+            # plotter_processes.append(Process(target = plot_3d, args = (teleop_configs.tracker.type, ))) # TODO change back if necessary
+            plotter_processes.append(Process(target = plot_3d_log, args = (teleop_configs.tracker.type, )))
             
         if teleop_configs.tracker['visualize_pred_stream']:
             plotter_processes.append(Process(target = viz_hand_stream, args = (teleop_configs.tracker['pred_stream_rotation_angle'], )))
@@ -127,6 +128,7 @@ def get_detector_processes(teleop_configs):
         if teleop_configs.tracker['visualize_right_graphs']:
             plotter_processes.append(Process(target = plot_2d, args = ('VR_RIGHT', teleop_configs.tracker['host'], teleop_configs.tracker['plot_stream_port'], )))
             plotter_processes.append(Process(target = plot_3d, args = ('VR_RIGHT', )))
+            plotter_processes.append(Process(target = plot_3d_log, args = ('VR_RIGHT', )))
             
         if teleop_configs.tracker['visualize_left_graphs']:
             plotter_processes.append(Process(target = plot_oculus_left_hand))

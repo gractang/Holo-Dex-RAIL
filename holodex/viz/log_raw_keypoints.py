@@ -1,5 +1,7 @@
 import numpy as np
 import rospy
+import math
+import time
 
 from std_msgs.msg import Float64MultiArray
 
@@ -45,7 +47,6 @@ class Hand3DVisualizerLogger(object):
     def _callback_keypoints(self, keypoints):
         self.keypoints = np.array(keypoints.data).reshape(self.num_keypoints, 3)
 
-
     def stream(self):
         while True:
             if self.keypoints is None:
@@ -54,10 +55,19 @@ class Hand3DVisualizerLogger(object):
             else:
                 self.plotter3D.draw(self.keypoints[:, 0], self.keypoints[:, 1], self.keypoints[:, 2])
 
-            self.all_keypoints.append(keypoints)
-            if len(self.all_keypoints) == 3000:
-                np.save("keypoints.npy", np.asarray(self.all_keypoints))
-                break
+                
+            # self.all_keypoints.append(self.keypoints)
+            # if len(self.all_keypoints) == 200:
+            #     np.save("keypoints.npy", np.asarray(self.all_keypoints))
+            #     print("keypoints saved")
+            #     break
+
+
+
+            # process information
+            # action = ...
+            # msg = ... # use action somehow to make msg
+            # self.action_publisher.publish(msg)
 
 
 class OculusLeftHandDirVisualizer(object):
